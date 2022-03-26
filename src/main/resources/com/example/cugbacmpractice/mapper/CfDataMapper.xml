@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.cugbacmpractice.mapper.CfDataMapper">
+    <select id="getVjList" resultType="cfData">
+        select *
+        from CugbAcm_Profile.cf_data;
+    </select>
+    <select id="getVjListBySid" resultType="cfData">
+        select *
+        from CugbAcm_Profile.cf_data
+        where sid=#{sid};
+    </select>
+    <insert id="insertCfData" parameterType="cfData">
+        insert into cf_data (sid, profile_name, `rank`, all_solved, month_solved,record_date)
+        values (#{sid},#{profileName},#{rank},#{allSolved},#{monthSolved},#{recordDate});
+    </insert>
+</mapper>

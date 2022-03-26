@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-4 column">
+        </div>
+        <div class="col-md-4 column">
+            <h1 class="text-center">注册</h1>
+            <form role="form" th:action="@{/signup}" method="post">
+                <div class="form-group">
+                    <label for="studentId">学号</label>
+                    <input type="text" class="form-control" id="studentId" name="studentId" required/>
+                </div>
+                <div class="form-group">
+                    <label for="name">姓名</label>
+                    <input type="text" class="form-control" id="name" name="name" required/>
+                </div>
+                <div class="form-group">
+                    <label for="grade">入学年</label>
+                    <input type="number" class="form-control" id="grade" name="grade" required/>
+                </div>
+                <div class="form-group">
+                    <label for="cfProfileName">cf账户名</label>
+                    <input type="text" class="form-control" id="cfProfileName" name="cfProfileName"/>
+                </div>
+                <div class="form-group">
+                    <label for="vjProfileName">vj账户名</label>
+                    <input type="text" class="form-control" id="vjProfileName" name="vjProfileName"/>
+                </div>
+                <div class="form-group">
+                    <label for="Password">密码</label>
+                    <input type="password" class="form-control" id="Password" name="password" required/>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" name="isActive"/>在队/在役</label>
+                </div>
+                <button type="submit" class="btn btn-default">注册</button>
+            </form>
+        </div>
+        <div class="col-md-4 column">
+        </div>
+    </div>
+</div>
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</body>
+</html>

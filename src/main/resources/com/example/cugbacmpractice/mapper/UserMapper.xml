@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.cugbacmpractice.mapper.UserMapper">
+    <select id="getUserList" resultType="user">
+        select * from CugbAcm_Profile.User;
+    </select>
+    <select id="getUserListByGrade" resultType="user">
+        select * from CugbAcm_Profile.User
+        where grade=#{grade};
+    </select>
+    <select id="getUserListByNameLike" resultType="user" parameterType="string">
+        select * from CugbAcm_Profile.User
+        where name like CONCAT('%',#{name},'%');
+    </select>
+    <select id="getActiveUserList" resultType="user">
+        select * from CugbAcm_Profile.User
+        where is_active=true;
+    </select>
+    <select id="getNotActiveUserList" resultType="user">
+        select * from CugbAcm_Profile.User
+        where is_active=false;
+    </select>
+    <select id="getUserBySid" resultType="user">
+        select * from CugbAcm_Profile.User
+        where student_id=#{sid};
+    </select>
+
+
+    <update id="updateUser" parameterType="user">
+        update CugbAcm_Profile.User
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name!=null">name=#{name},</if>
+            <if test="password!=null">password=#{password},</if>
+            <if test="grade!=null">grade=#{grade},</if>
+            <if test="cfProfileName!=null">cf_profile_name=#{cfProfileName},</if>
+            <if test="vjProfileName!=null">vj_profile_name=#{vjProfileName}</if>
+            <if test="isActive!=null">is_active=#{isActive}</if>
+        </trim>
+        where student_id = #{sid};
+    </update>
+    <insert id="insertUser" parameterType="user">
+        insert into CugbAcm_Profile.User (student_id, name, cf_profile_name, vj_profile_name, grade, is_active, password)
+        values (#{studentId},#{name},#{cfProfileName},#{vjProfileName},#{grade},#{isActive},#{password});
+    </insert>
+    <delete id="deleteUser" parameterType="String">
+        delete
+        from CugbAcm_Profile.User
+        where student_id=#{sid};
+    </delete>
+</mapper>

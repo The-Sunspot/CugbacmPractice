@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-4 column">
+        </div>
+        <div class="col-md-4 column">
+            <h2 class="text-center">
+                CugbAcm队员数据分析系统 version:0.1.0
+            </h2>
+                <div th:each="Info:${UserInfos}">
+                    <div th:object="${Info.user}">
+                        <span th:text="*{grade}+'级 '+*{name}"></span>
+                    </div>
+
+                    <div th:if="${Info.vjData}" th:object="${Info.vjData}" >
+                        vjudge:
+                        <span th:text="'总通过 '+*{allSolved}"></span>
+                        <span th:text="'月通过 '+*{monthSolved}"></span>
+                        <span th:text="'周通过 '+*{weekSolved}"></span>
+                        <span th:text="'日通过 '+*{daySolved}"></span>
+
+                    </div>
+                    <div th:if="${Info.cfData}" th:object="${Info.cfData}">
+                        codeforces:
+                        <span th:text="'rate '+*{rank}"></span>
+                        <span th:text="'总通过 '+*{allSolved}"></span>
+                        <span th:text="'年通过 '+*{monthSolved}"></span>
+                    </div>
+                    <hr>
+                </div>
+            <a th:href="@{/dosignup}"><button>注册</button></a>
+        </div>
+
+        <div class="col-md-4 column">
+        </div>
+    </div>
+</div>
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</body>
+</html>

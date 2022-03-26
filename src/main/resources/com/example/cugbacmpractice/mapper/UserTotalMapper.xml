@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.cugbacmpractice.mapper.UserTotalMapper">
+    <resultMap id="map1" type="userTotal">
+        <association property="user" javaType="User">
+            <result property="studentId" column="sid"/>
+            <result property="name" column="name"/>
+            <result property="grade" column="grade"/>
+            <result property="isActive" column="act"/>
+        </association>
+        <association property="vjData" javaType="VjData">
+            <result property="allSolved" column="vjall"/>
+            <result property="monthSolved" column="vjmonth"/>
+            <result property="weekSolved" column="vjweek"/>
+            <result property="daySolved" column="vjday"/>
+        </association>
+        <association property="cfData" javaType="CfData">
+            <result property="rank" column="cfrank"/>
+            <result property="allSolved" column="cfall"/>
+            <result property="monthSolved" column="cfmonth"/>
+        </association>
+    </resultMap>
+
+    <select id="getUserTodayTotalList" resultMap="map1">
+        select
+            uv.sid, name, grade, act, vjall, vjmonth, vjweek, vjday,
+            c.rank cfrank,
+            c.all_solved cfall,
+            c.month_solved cfmonth
+
+        from
+            (select u.student_id sid,
+                    u.name name,
+                    u.grade grade,
+                    u.is_active act,
+                    v.vjall, vjmonth, vjweek, vjday, vid
+             from
+                 CugbAcm_Profile.User u left join
+                 (select v1.all_solved vjall,
+                         v1.month_solved vjmonth,
+                         v1.week_solved vjweek,
+                         v1.day_solved vjday,
+                         v1.sid vid
+                  from CugbAcm_Profile.vj_data v1
+                  where not exists(
+                          select 1
+                          from CugbAcm_Profile.vj_data v2
+                          where v1.sid=v2.sid
+                            and v1.record_date &lt; v2.record_date
+                      )) v
+                 on u.student_id=v.vid) uv
+                left join
+            (select *
+             from CugbAcm_Profile.cf_data c1
+             where not exists(
+                     select 1
+                     from CugbAcm_Profile.cf_data c2
+                     where c1.sid=c2.sid
+                       and c1.record_date &lt; c2.record_date
+                 )) c
+            on uv.sid = c.sid;
+    </select>
+    <select id="getActiveUserTodayTotalList" resultMap="map1">
+        select
+            uv.sid, name, grade, act, vjall, vjmonth, vjweek, vjday,
+            c.rank cfrank,
+            c.all_solved cfall,
+            c.month_solved cfmonth
+
+        from
+            (select u.student_id sid,
+                    u.name name,
+                    u.grade grade,
+                    u.is_active act,
+                    v.vjall, vjmonth, vjweek, vjday, vid
+             from
+                     (select * from CugbAcm_Profile.User uu where uu.is_active=true) u
+                         left join
+                 (select v1.all_solved vjall,
+                         v1.month_solved vjmonth,
+                         v1.week_solved vjweek,
+                         v1.day_solved vjday,
+                         v1.sid vid
+                  from CugbAcm_Profile.vj_data v1
+                  where not exists(
+                          select 1
+                          from CugbAcm_Profile.vj_data v2
+                          where v1.sid=v2.sid
+                            and v1.record_date  &lt;v2.record_date
+                      )) v
+                 on u.student_id=v.vid) uv
+                left join
+            (select *
+             from CugbAcm_Profile.cf_data c1
+             where not exists(
+                     select 1
+                     from CugbAcm_Profile.cf_data c2
+                     where c1.sid=c2.sid
+                       and c1.record_date &lt;c2.record_date
+                 )) c
+            on uv.sid = c.sid
+
+    </select>
+</mapper>

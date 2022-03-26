@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.cugbacmpractice.mapper.VjDataMapper">
+    <select id="getVjList" resultType="vjData">
+        select *
+        from CugbAcm_Profile.vj_data;
+    </select>
+    <select id="getVjListBySid" resultType="vjData">
+        select *
+        from CugbAcm_Profile.vj_data
+        where sid=#{sid};
+    </select>
+    <insert id="insertVjData" parameterType="vjData">
+        insert into vj_data (sid, profile_name, all_solved, month_solved, week_solved, day_solved,record_date)
+        values (#{sid},#{profileName},#{allSolved},#{monthSolved},#{weekSolved},#{daySolved},#{recordDate});
+    </insert>
+</mapper>
